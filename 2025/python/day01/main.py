@@ -43,5 +43,24 @@ def main():
     print(safe_dial)
 
 
+def test_problem_1():
+    test_sequence = "L68\nL30\nR48\nL5\nR60\nL55\nL1\nL99\nR14\nL82"
+    expected_outcome = 3
+    safe_dial = SafeDial()
+    for line in test_sequence.split("\n"):
+        direction = line[0]
+        distance = int(line[1:])
+        if direction == "R":
+            safe_dial.move_right(distance)
+        else:
+            safe_dial.move_left(distance)
+        safe_dial.check_at_0()
+        print(safe_dial)
+
+
+def test_problem_2():
+    pass
+
+
 if __name__ == "__main__":
     main()
