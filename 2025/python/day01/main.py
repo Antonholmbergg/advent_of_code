@@ -17,7 +17,7 @@ class SafeDial:
         self.position %= 100
 
     def move_left(self, distance: int) -> None:
-        extra_0 = 1 if (self.position - (distance % 100)) <= 0 else 0
+        extra_0 = 1 if ((self.position - (distance % 100)) <= 0) and (self.position != 0) else 0
         times_passed_0_this_turn = distance // 100 + extra_0
         self.n_times_at_0 += times_passed_0_this_turn
 
@@ -43,7 +43,7 @@ def main():
     print(safe_dial)
 
 
-def test_problem_1():
+def test_problem_1() -> None:
     test_sequence = "L68\nL30\nR48\nL5\nR60\nL55\nL1\nL99\nR14\nL82"
     expected_outcome = 3
     safe_dial = SafeDial()
@@ -55,11 +55,23 @@ def test_problem_1():
         else:
             safe_dial.move_left(distance)
         safe_dial.check_at_0()
+    assert safe_dial.n_times_at_0_first_problem == expected_outcome
+
+
+def test_problem_2() -> None:
+    test_sequence = "L68\nL30\nR48\nL5\nR60\nL55\nL1\nL99\nR14\nL82"
+    expected_outcome = 6
+    safe_dial = SafeDial()
+    for line in test_sequence.split("\n"):
+        direction = line[0]
+        distance = int(line[1:])
+        if direction == "R":
+            safe_dial.move_right(distance)
+        else:
+            safe_dial.move_left(distance)
+        safe_dial.check_at_0()
         print(safe_dial)
-
-
-def test_problem_2():
-    pass
+    assert safe_dial.n_times_at_0 == expected_outcome
 
 
 if __name__ == "__main__":
